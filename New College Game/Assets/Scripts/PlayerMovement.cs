@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float playerSpeed = 10f; // Controls velocity multiplier.
+    public float playerHealth = 100f; // Controls player health.
     Rigidbody rb; // Defines in the script there is a rigidbody & the variable to call for it is {rb}
 
     // Jump Merge
@@ -25,15 +26,14 @@ public class PlayerMovement : MonoBehaviour
         float xMove = Input.GetAxisRaw("Horizontal"); // d key changes value to 1, a key changes value to -1
         float zMove = 0; // w key changes value to 1, s key changes value to -1
 
-        print(xMove);
         if (xMove != 0 && GroundCheck()) {
             rb.velocity = new Vector3(xMove, rb.velocity.y, zMove) * playerSpeed; // Creates velocity in direction of value equal to keypress (WASD). rb.velocity.y deals with falling + jumping by setting velocity to y. 
         }
-
-        if (Input.GetKeyDown(KeyCode.Space) && GroundCheck()) {
+        
+        if (Input.GetKeyDown(KeyCode.Space) && GroundCheck() && xMove == 0) {
             rb.AddForce(transform.up*jumpforce,ForceMode.Impulse);
         }
-    }
+     }
 
     void OnDrawGizmos() {
         Gizmos.color=Color.red;
@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     bool GroundCheck() {
-        return Physics.BoxCast(transform.position,boxSize,-transform.up,transform.rotation,maxDistance,layerMask);
+        bool grounded = Physics.BoxCast(transform.position,boxSize,-transform.up,transform.rotation,maxDistance,layerMask);
+        return grounded;
     }
 }
