@@ -29,18 +29,17 @@ public class AIBehaviour : MonoBehaviour
         // playerOne can now be used as a variable to call for the player's rigidbody component.
         // playerTwo can now be used as a variable to call for the AI's rigidbody component.
 
-        isPlayerReady = true; // Sets the player to ready.
-        isAiReady = true; // Sets the AI to ready.
+        isPlayerReady = (playerOne != null); // Sets the player to ready.
+        isAiReady = (playerTwo != null); // Sets the AI to ready.
     }
 
     // Update is called once per frame
     void Update()
     {
         if (isPlayerReady && isAiReady) { // If both the player and the AI are ready to move, then the AI will move.
-            // AI is ready to move.
-            // AI is ready to fight.
-            // AI is ready to jump.
-            // AI is ready to do everything.
+            // print ai is ready to move
+            // Debug.Log("AI is ready to move");
+        
         }
     }
 }
